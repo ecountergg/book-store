@@ -13,6 +13,11 @@
   },
   "dependencies": {
     "@fontsource/poppins": "^5.1.0",
+    "@mantine/core": "^7.15.2",
+    "@mantine/form": "^7.15.2",
+    "@mantine/hooks": "^7.15.2",
+    "@mantine/modals": "^7.15.2",
+    "@mantine/nprogress": "^7.15.2",
     "@prisma/client": "^6.1.0",
     "@tanstack/react-query": "^5.62.9",
     "@trpc/client": "11.0.0-rc.666",
@@ -34,6 +39,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "postcss": "^8.4.49",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5"
   }
 }

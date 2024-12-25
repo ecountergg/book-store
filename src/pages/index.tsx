@@ -1,13 +1,5 @@
-import { trpc } from "../utils/trpc";
+import { Button } from "@mantine/core";
 
 export default function IndexPage() {
-  const hello = trpc.healthcheck.useQuery();
-  if (!hello.data) {
-    return <div>Loading...</div>;
-  }
-  return (
-    <div>
-      <p>{hello.data}</p>
-    </div>
-  );
+  return <Button>Next link button</Button>;
 }
