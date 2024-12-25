@@ -1,16 +1,17 @@
 import type { AppType } from "next/app";
-import { createTheme, MantineProvider } from "@mantine/core";
+import { DEFAULT_THEME, MantineProvider } from "@mantine/core";
 
+import AppLayout from "@/layouts/AppLayout";
 import { trpc } from "@/utils/trpc";
 
 import "@mantine/core/styles.css";
 
-const theme = createTheme({});
-
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <MantineProvider theme={theme}>
-      <Component {...pageProps} />
+    <MantineProvider theme={DEFAULT_THEME}>
+      <AppLayout>
+        <Component {...pageProps} />
+      </AppLayout>
     </MantineProvider>
   );
 };
