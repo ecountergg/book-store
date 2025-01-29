@@ -8,9 +8,11 @@
  * @see https://trpc.io/docs/v11/procedures
  */
 
-import type { Context } from "./context";
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
+import { TRPC_ERROR_CODES_BY_NUMBER } from "@trpc/server/unstable-core-do-not-import";
 import superjson from "superjson";
+
+import type { Context } from "./context";
 
 const t = initTRPC.context<Context>().create({
   /**
@@ -36,6 +38,29 @@ export const router = t.router;
  * @see https://trpc.io/docs/v11/procedures
  **/
 export const publicProcedure = t.procedure;
+
+/**
+ * Create an protected procedure
+ * @see https://trpc.io/docs/v11/procedures
+ **/
+export const protectedProcedure = t.procedure.use(async function isAuthed(
+  opts
+) {
+  const { ctx } = opts;
+
+  if (!ctx.session) {
+    throw new TRPCError({
+      code: TRPC_ERROR_CODES_BY_NUMBER["-32001"],
+      message: "Unauthorized",
+    });
+  }
+
+  return opts.next({
+    ctx: {
+      user: ctx.session,
+    },
+  });
+});
 
 /**
  * @see https://trpc.io/docs/v11/merging-routers

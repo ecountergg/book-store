@@ -1,9 +1,9 @@
-import * as trpc from "@trpc/server";
+import { TRPCError } from "@trpc/server";
 import { hash } from "argon2";
-
-import { createTRPCRouter, publicProcedure } from "@/server/trpc";
-import { registerFormSchema } from "@/components/Forms/RegisterForm/schema";
 import { TRPC_ERROR_CODES_BY_NUMBER } from "@trpc/server/unstable-core-do-not-import";
+
+import { registerFormSchema } from "@/components/Forms/RegisterForm/schema";
+import { createTRPCRouter, publicProcedure } from "@/server/trpc";
 
 export const authRouter = createTRPCRouter({
   register: publicProcedure
@@ -16,7 +16,7 @@ export const authRouter = createTRPCRouter({
       });
 
       if (exists) {
-        throw new trpc.TRPCError({
+        throw new TRPCError({
           code: TRPC_ERROR_CODES_BY_NUMBER["-32009"],
           message: "User already exists.",
         });

@@ -34,7 +34,7 @@ export function RegisterForm(props: PaperProps) {
     validate: zodResolver(registerFormSchema),
   });
   const router = useRouter();
-  const { mutate: registerUser, isPending: registerUserIsPending } =
+  const { mutate: mutateRegister, isPending: mutateRegisterIsPending } =
     trpc.auth.register.useMutation({
       onSuccess: () => {
         notifications.show({
@@ -69,7 +69,7 @@ export function RegisterForm(props: PaperProps) {
   };
 
   const onSubmit = useCallback((values: RegisterFormSchema) => {
-    registerUser(values);
+    mutateRegister(values);
   }, []);
 
   return (
@@ -132,7 +132,7 @@ export function RegisterForm(props: PaperProps) {
           >
             {"Already have an account? Login"}
           </Anchor>
-          <Button type="submit" radius="xl" loading={registerUserIsPending}>
+          <Button type="submit" radius="xl" loading={mutateRegisterIsPending}>
             Register
           </Button>
         </Group>

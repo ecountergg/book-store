@@ -19,7 +19,6 @@ model User {
 
 model Author {
   id         Int    @id @default(autoincrement())
-  secure_id  String @db.Uuid
   fullname   String
   birth_year Int
   email      String @unique
@@ -31,7 +30,6 @@ model Author {
 
 model Book {
   id           Int            @id @default(autoincrement())
-  secure_id    String         @db.Uuid
   title        String
   isbc         String         @unique
   price        Float
@@ -44,7 +42,6 @@ model Book {
 
 model Category {
   id           Int            @id @default(autoincrement())
-  secure_id    String         @db.Uuid
   name         String
   description  String
   CategoryBook CategoryBook[]

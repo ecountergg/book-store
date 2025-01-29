@@ -7,7 +7,7 @@ const IndexPage: NextPage = () => {
       <Head>
         <title>Admin - Book Store</title>
       </Head>
-      Admin Dashboard
+      Admin - Book Management - Book
     </>
   );
 };
