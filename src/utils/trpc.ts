@@ -1,10 +1,5 @@
 import type { TRPCLink } from "@trpc/client";
-import {
-  createWSClient,
-  httpBatchLink,
-  loggerLink,
-  wsLink,
-} from "@trpc/client";
+import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { ssrPrepass } from "@trpc/next/ssrPrepass";
 import type { inferRouterOutputs } from "@trpc/server";
@@ -19,39 +14,35 @@ import superjson from "superjson";
 
 const { publicRuntimeConfig } = getConfig();
 
-const { APP_URL, WS_URL } = publicRuntimeConfig;
+const { APP_URL, PORT } = publicRuntimeConfig;
 
-function getEndingLink(ctx: NextPageContext | undefined): TRPCLink<AppRouter> {
-  if (typeof window === "undefined") {
-    return httpBatchLink({
-      /**
-       * @see https://trpc.io/docs/v11/data-transformers
-       */
-      transformer: superjson,
-      url: `${APP_URL}/api/trpc`,
-      headers() {
-        if (!ctx?.req?.headers) {
-          return {};
-        }
-        // on ssr, forward client's headers to the server
-        return {
-          ...ctx.req.headers,
-          "x-ssr": "1",
-        };
-      },
-    });
-  }
-  const client = createWSClient({
-    url: WS_URL,
-  });
-  return wsLink({
-    client,
+const getBaseUrl = () => {
+  if (APP_URL) return `${APP_URL}api/trpc`;
+
+  return `http://localhost:${PORT ?? 3000}`;
+};
+
+const getEndingLink = (
+  ctx: NextPageContext | undefined
+): TRPCLink<AppRouter> => {
+  return httpBatchLink({
     /**
      * @see https://trpc.io/docs/v11/data-transformers
      */
     transformer: superjson,
+    url: getBaseUrl(),
+    headers() {
+      if (!ctx?.req?.headers) {
+        return {};
+      }
+      // on ssr, forward client's headers to the server
+      return {
+        ...ctx.req.headers,
+        "x-ssr": "1",
+      };
+    },
   });
-}
+};
 
 /**
  * A set of strongly-typed React hooks from your `AppRouter` type signature with `createReactQueryHooks`.

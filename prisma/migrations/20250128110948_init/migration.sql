@@ -1,4 +1,15 @@
 -- CreateTable
+CREATE TABLE "user" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "author" (
     "id" SERIAL NOT NULL,
     "secure_id" UUID NOT NULL,
@@ -39,6 +50,9 @@ CREATE TABLE "category_book" (
 
     CONSTRAINT "category_book_pkey" PRIMARY KEY ("book_id","category_id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "author_email_key" ON "author"("email");

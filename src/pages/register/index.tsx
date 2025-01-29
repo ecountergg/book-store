@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import classes from "./index.module.css";
 
-import { LoginForm } from "@/components/Forms/LoginForm";
+import { RegisterForm } from "@/components/Forms/RegisterForm";
 
 const IndexPage: NextPage = () => {
   return (
@@ -14,7 +14,7 @@ const IndexPage: NextPage = () => {
       </Head>
       <Box className={classes.wrapper}>
         <Box w={340}>
-          <LoginForm />
+          <RegisterForm />
         </Box>
       </Box>
     </>

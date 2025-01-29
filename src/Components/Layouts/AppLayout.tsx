@@ -3,8 +3,8 @@ import { AppShell, AppShellProps } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
 
-import MainHeader from "./Header/Header";
-import MainNavbar from "./Navbar/Navbar";
+import MainHeader from "./Header";
+import MainNavbar from "./Navbar";
 
 export default function AppLayout(props: AppShellProps) {
   const router = useRouter();

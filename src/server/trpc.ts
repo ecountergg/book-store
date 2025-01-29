@@ -41,3 +41,10 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/v11/merging-routers
  */
 export const mergeRouters = t.mergeRouters;
+
+/**
+ * This is how you create new routers and sub-routers in your tRPC API.
+ *
+ * @see https://trpc.io/docs/router
+ */
+export const createTRPCRouter = t.router;

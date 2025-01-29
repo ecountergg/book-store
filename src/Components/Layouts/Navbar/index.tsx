@@ -5,7 +5,7 @@ import { IconBook, IconGauge } from "@tabler/icons-react";
 
 import NavLinksGroup from "./NavbarLinksGroup";
 
-import classes from "./navbar.module.css";
+import classes from "./index.module.css";
 
 export default function MainNavbar() {
   const mockNavbar = () => [

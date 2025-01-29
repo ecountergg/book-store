@@ -1,0 +1,9 @@
+.wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  min-height: 100vh;
+  padding: rem(16px);
+}
