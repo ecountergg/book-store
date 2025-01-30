@@ -3,7 +3,10 @@ import { TRPC_ERROR_CODES_BY_NUMBER } from "@trpc/server/unstable-core-do-not-im
 
 import { bookCategoryFormSchema } from "@/components/Forms/BookCategoryForm/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc";
-import { filterBookCategorySchema, paginatedCategorySchema } from "./schema";
+import {
+  filterbookCategoryResponseSchema,
+  paginatedCategoryResponseSchema,
+} from "./schema";
 import { responsePagination } from "@/utils/pagination";
 
 export const categoryRouter = createTRPCRouter({
@@ -37,7 +40,7 @@ export const categoryRouter = createTRPCRouter({
       };
     }),
   listCategory: protectedProcedure
-    .input(filterBookCategorySchema)
+    .input(filterbookCategoryResponseSchema)
     .query(async ({ ctx, input }) => {
       const { pageIndex, pageSize, name } = input;
 
@@ -65,7 +68,7 @@ export const categoryRouter = createTRPCRouter({
         categories
       );
 
-      paginatedCategorySchema.parse(response);
+      paginatedCategoryResponseSchema.parse(response);
 
       return response;
     }),

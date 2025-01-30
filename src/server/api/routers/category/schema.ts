@@ -3,13 +3,19 @@ import { z } from "zod";
 import { filterPaginationSchema, paginationSchema } from "@/schemas/pagination";
 import { filterBookCategory } from "@/components/Forms/FilterBookCategoryForm/schema";
 
-export const filterBookCategorySchema =
+export const filterbookCategoryResponseSchema =
   filterPaginationSchema(filterBookCategory);
 
-export const bookCategorySchema = z.object({
+export const bookCategoryResponseSchema = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string(),
 });
 
-export const paginatedCategorySchema = paginationSchema(bookCategorySchema);
+export const paginatedCategoryResponseSchema = paginationSchema(
+  bookCategoryResponseSchema
+);
+
+export type BookCategoryResponseSchema = z.infer<
+  typeof bookCategoryResponseSchema
+>;
