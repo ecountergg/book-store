@@ -43,9 +43,7 @@ const BookCategoryForm = ({ close }: Props) => {
         utils.category.listCategory.invalidate();
         close();
       },
-      onError: (error) => {
-        console.log(error);
-
+      onError: () => {
         notifications.show({
           id: "category-failed",
           withCloseButton: true,
