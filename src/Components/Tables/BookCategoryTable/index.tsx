@@ -8,6 +8,7 @@ import { trpc } from "@/utils/trpc";
 import { BookCategoryFormModal } from "@/components/Modals/BookCategoryFormModal";
 
 import CustomMRTTable from "../CustomMRTTable";
+import { BookCategoryResponseSchema } from "@/server/api/routers/category/schema";
 
 const BookCategoryTable = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -18,7 +19,7 @@ const BookCategoryTable = () => {
     });
 
   // eslint-disable-next-line camelcase, @typescript-eslint/no-explicit-any
-  const columns: MRT_ColumnDef<any>[] = [
+  const columns: MRT_ColumnDef<BookCategoryResponseSchema>[] = [
     { accessorKey: "name", header: "Name" },
     { accessorKey: "description", header: "Description" },
   ];
