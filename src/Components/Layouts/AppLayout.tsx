@@ -28,6 +28,5 @@ export default function AppLayout(props: AppShellProps) {
       </AppShell>
     );
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{props.children}</>;
+  return props.children;
 }

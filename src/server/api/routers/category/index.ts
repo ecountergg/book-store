@@ -4,7 +4,7 @@ import { TRPC_ERROR_CODES_BY_NUMBER } from "@trpc/server/unstable-core-do-not-im
 import { bookCategoryFormSchema } from "@/components/Forms/BookCategoryForm/schema";
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc";
 import {
-  filterbookCategoryResponseSchema,
+  filterBookCategoryResponseSchema,
   paginatedCategoryResponseSchema,
 } from "./schema";
 import { responsePagination } from "@/utils/pagination";
@@ -40,16 +40,16 @@ export const categoryRouter = createTRPCRouter({
       };
     }),
   listCategory: protectedProcedure
-    .input(filterbookCategoryResponseSchema)
+    .input(filterBookCategoryResponseSchema)
     .query(async ({ ctx, input }) => {
-      const { pageIndex, pageSize, name } = input;
+      const { pageIndex, pageSize, search } = input;
 
       const skip = pageIndex * pageSize;
 
       const where: { name?: { contains: string; mode: "insensitive" } } = {};
 
-      if (name) {
-        where.name = { contains: name, mode: "insensitive" };
+      if (search) {
+        where.name = { contains: search, mode: "insensitive" };
       }
 
       const [categories, totalCount] = await ctx.prisma.$transaction([

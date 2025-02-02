@@ -1,6 +1,6 @@
 import { Modal } from "@mantine/core";
 
-import BookCategoryForm from "../../Forms/BookCategoryForm/BookCategoryForm";
+import BookCategoryForm from "@/components/Forms/BookCategoryForm";
 
 type Props = {
   opened: boolean;
@@ -9,7 +9,7 @@ type Props = {
 
 export const BookCategoryFormModal = ({ opened, close }: Props) => {
   return (
-    <Modal opened={opened} title="Create Category" onClose={close}>
+    <Modal opened={opened} title="Create Category" onClose={close} centered>
       <BookCategoryForm close={close} />
     </Modal>
   );

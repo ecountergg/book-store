@@ -8,6 +8,7 @@ const Page: NextPage = () => {
 
   useEffect(() => {
     push("/admin/book-management/book");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

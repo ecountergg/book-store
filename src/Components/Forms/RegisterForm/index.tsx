@@ -70,6 +70,7 @@ export function RegisterForm(props: PaperProps) {
 
   const onSubmit = useCallback((values: RegisterFormSchema) => {
     mutateRegister(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,28 +1,44 @@
 "use client";
 
+import { useMemo } from "react";
 import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { MRT_ColumnDef } from "mantine-react-table";
 
-import { trpc } from "@/utils/trpc";
 import { BookCategoryFormModal } from "@/components/Modals/BookCategoryFormModal";
+import {
+  BookCategoryResponseSchema,
+  FilterBookCategoryResponseSchema,
+} from "@/server/api/routers/category/schema";
+import { useGetCategoryListQuery } from "@/hooks/services/categories/queries/useGetCategoryList.query";
+import useTableQuery from "@/hooks/useTableQuery";
 
 import CustomMRTTable from "../CustomMRTTable";
-import { BookCategoryResponseSchema } from "@/server/api/routers/category/schema";
 
 const BookCategoryTable = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const { data: categories, isPending: isPenddingCategories } =
-    trpc.category.listCategory.useQuery({
-      pageIndex: 0,
-      pageSize: 100,
+  const [
+    openedCreateCategory,
+    { open: setOpenCreateCategory, close: setCloseCreateCategory },
+  ] = useDisclosure(false);
+  const {
+    filter: filterCategory,
+    setFilter: setFilterCategory,
+    data: categories,
+    isPending: isPendingCategories,
+  } = useGetCategoryListQuery();
+  const { tableState, setPagination, setGlobalFilter } =
+    useTableQuery<FilterBookCategoryResponseSchema>({
+      filter: filterCategory,
+      setFilter: setFilterCategory,
     });
 
-  // eslint-disable-next-line camelcase, @typescript-eslint/no-explicit-any
-  const columns: MRT_ColumnDef<BookCategoryResponseSchema>[] = [
-    { accessorKey: "name", header: "Name" },
-    { accessorKey: "description", header: "Description" },
-  ];
+  const columns: MRT_ColumnDef<BookCategoryResponseSchema>[] = useMemo(
+    () => [
+      { accessorKey: "name", header: "Name" },
+      { accessorKey: "description", header: "Description" },
+    ],
+    []
+  );
 
   return (
     <>
@@ -30,21 +46,32 @@ const BookCategoryTable = () => {
         rowCount={categories?.totalCount}
         columns={columns}
         data={categories?.items ?? []}
+        enableSorting={false}
         manualFiltering
         manualPagination
-        enableRowActions={false}
+        mantineSearchTextInputProps={{
+          placeholder: "Search Category",
+        }}
         state={{
-          showProgressBars: isPenddingCategories,
+          isLoading: isPendingCategories,
+          showProgressBars: isPendingCategories,
           density: "xs",
+          globalFilter: tableState.globalFilter,
+          pagination: tableState.pagination,
         }}
         renderTopToolbarCustomActions={() => (
-          <Button variant="filled-primary" onClick={() => open()}>
+          <Button variant="filled" onClick={() => setOpenCreateCategory()}>
             Create Category
           </Button>
         )}
+        onPaginationChange={setPagination}
+        onGlobalFilterChange={setGlobalFilter}
       />
 
-      <BookCategoryFormModal opened={opened} close={close} />
+      <BookCategoryFormModal
+        opened={openedCreateCategory}
+        close={setCloseCreateCategory}
+      />
     </>
   );
 };

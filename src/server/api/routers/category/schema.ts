@@ -1,10 +1,11 @@
 import { z } from "zod";
 
 import { filterPaginationSchema, paginationSchema } from "@/schemas/pagination";
-import { filterBookCategory } from "@/components/Forms/FilterBookCategoryForm/schema";
+import { filterBookCategorySchema } from "@/components/Forms/FilterBookCategoryForm/schema";
 
-export const filterbookCategoryResponseSchema =
-  filterPaginationSchema(filterBookCategory);
+export const filterBookCategoryResponseSchema = filterPaginationSchema(
+  filterBookCategorySchema
+);
 
 export const bookCategoryResponseSchema = z.object({
   id: z.number(),
@@ -18,4 +19,12 @@ export const paginatedCategoryResponseSchema = paginationSchema(
 
 export type BookCategoryResponseSchema = z.infer<
   typeof bookCategoryResponseSchema
+>;
+
+export type PaginatedCategoryResponseSchema = z.infer<
+  typeof paginatedCategoryResponseSchema
+>;
+
+export type FilterBookCategoryResponseSchema = z.infer<
+  typeof filterBookCategoryResponseSchema
 >;

@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable camelcase */
 import NextAuth from "next-auth";
 
 import { CredentialsProvider } from "./credentials";
